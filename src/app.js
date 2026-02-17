@@ -81,3 +81,4 @@ app.listen(port, '0.0.0.0', () => {
   console.log(`📊 Health: http://localhost:${port}/health`);
   console.log(`📚 Docs: http://localhost:${port}/api-docs`);
 });
+"console.log('DB connected successfully');" 
