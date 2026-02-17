@@ -9,20 +9,20 @@
     "seed": "node src/utils/seed.js"
   },
   "dependencies": {
-    "express": "^4.19.2",
-    "pg": "^8.12.0",
-    "dotenv": "^16.4.5",
-    "helmet": "^7.1.0",
     "cors": "^2.8.5",
-    "swagger-ui-express": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "express": "5.2.1",
     "express-validator": "^7.2.0",
-    "uuid": "^10.0.0",
-    "joi": "^17.13.3"
+    "helmet": "^7.1.0",
+    "joi": "^17.13.3",
+    "pg": "^8.12.0",
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4",
     "jest": "^29.7.0",
-    "supertest": "^7.0.0",
-    "pg-mem": "^2.8.1"
+    "nodemon": "^3.1.4",
+    "pg-mem": "^2.8.1",
+    "supertest": "^7.0.0"
   }
 }
