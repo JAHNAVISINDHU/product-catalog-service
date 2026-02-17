@@ -9,3 +9,4 @@ module.exports = class Product {
     this.updated_at = data.updated_at;
   }
 };
+"// Product model validation" 
