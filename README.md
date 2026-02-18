@@ -30,15 +30,15 @@
                                 │
                                 ▼
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Services      │◄──►│  Unit of Work    │◄──►│  Repositories  │
+│   Services      │◄──►│  Unit of Work    │◄──►│  Repositories   │
 │   (Business     │    │   (Transactions) │    │                 │
 │    Logic)       │    └──────────────────┘    └─────────────────┘
 └─────────────────┘                    │
                                        ▼
                                 ┌─────────────────┐
                                 │ PostgreSQL 16   │
-                                │ -  GIN FTS Index │
-                                │ -  Many-to-Many  │
+                                │ -  GIN FTS Index│
+                                │ -  Many-to-Many │
                                 └─────────────────┘
 ```
 
