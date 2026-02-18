@@ -217,7 +217,7 @@ Copy `.env.example` → `.env` and update credentials.
 ## 👨‍💻 Author
 
 **JAHNAVISINDHU**  
-[GitHub](https://github.com/JAHNAVISINDHU) | [LinkedIn](https://linkedin.com/in/jahnavisindhu)
+[GitHub](https://github.com/JAHNAVISINDHU) | [LinkedIn](https://www.linkedin.com/in/jahnavi-sindhu-2b86a0290)
 
 ## 📞 Support
 
