@@ -1,12 +1,31 @@
 # Product Catalog Service
 
-A robust e-commerce backend microservice implementing the **Repository Pattern** and **Unit of Work** for clean data access, with an advanced search API.
+A robust e-commerce backend microservice implementing the **Repository Pattern** and **Unit of Work** for clean data access, featuring an advanced search API and PostgreSQL integration.
 
-## Tech Stack
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/JAHNAVISINDHU/product-catalog-service)
+[![Node.js Version](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
+
+---
+
+## 🚀 Overview
+
+This service provides a scalable foundation for managing products and categories in an e-commerce ecosystem. By utilizing the Repository pattern and Unit of Work, the project ensures a strict separation of concerns, making the codebase highly testable and maintainable.
+
+### Key Features
+- **Advanced Search**: Filter by keywords, price ranges, and multiple category IDs.
+- **Atomic Transactions**: Ensures data integrity using a custom Unit of Work implementation.
+- **Validation**: Strict request validation using Joi.
+- **Documentation**: Interactive API exploration via Swagger/OpenAPI.
+- **Dockerized**: One-command setup for both the application and the database.
+
+---
+
+## 🛠 Tech Stack
 
 - **Runtime**: Node.js 18 + Express.js
 - **Database**: PostgreSQL 15
-- **ORM**: Raw SQL via `pg` (node-postgres)
+- **ORM/Querying**: Raw SQL via `pg` (node-postgres)
 - **Validation**: Joi
 - **API Docs**: OpenAPI 3.0 / Swagger UI
 - **Testing**: Jest + Supertest
@@ -14,191 +33,146 @@ A robust e-commerce backend microservice implementing the **Repository Pattern**
 
 ---
 
-## Architecture
+## 📂 Architecture
 
-```
+The project follows a layered architecture to decouple business logic from data access:
+
+```text
 src/
-├── app.js                          # Express app entry point
-├── swagger.yaml                    # OpenAPI 3.0 specification
-├── config/
-│   ├── database.js                 # PostgreSQL connection pool
-│   └── logger.js                   # Winston logger
-├── repositories/
-│   ├── BaseRepository.js           # Shared query abstraction
-│   ├── ProductRepository.js        # Product data access layer
-│   ├── CategoryRepository.js       # Category data access layer
-│   └── UnitOfWork.js               # Transaction manager
-├── services/
-│   ├── ProductService.js           # Product business logic
-│   └── CategoryService.js          # Category business logic
-├── controllers/
-│   ├── productController.js        # HTTP request handlers
-│   └── categoryController.js
-├── routes/
-│   ├── productRoutes.js
-│   └── categoryRoutes.js
-├── middleware/
-│   ├── validate.js                 # Joi request validation
-│   └── errorHandler.js             # Global error handling
-└── tests/
-    ├── unit/                       # Mocked DB, no real connection
-    │   ├── productRepository.test.js
-    │   ├── categoryRepository.test.js
-    │   └── unitOfWork.test.js
-    └── integration/                # Requires real PostgreSQL
-        ├── testDb.js
-        ├── products.test.js
-        └── categories.test.js
-```
+├── app.js                  # Express app entry point
+├── swagger.yaml            # OpenAPI 3.0 specification
+├── config/                 # DB Connections & Logging
+├── repositories/           # Data access layer (SQL logic)
+│   ├── BaseRepository.js   # Shared query abstraction
+│   └── UnitOfWork.js       # Transaction manager
+├── services/               # Business logic layer
+├── controllers/            # HTTP request handlers
+├── routes/                 # Express route definitions
+├── middleware/             # Validation & Error handling
+└── tests/                  # Unit and Integration tests
+````
 
----
+-----
 
-## Quick Start (Docker)
+## ⚡ Quick Start (Docker)
+
+The fastest way to get the service running is using Docker. This will spin up the Node.js app and a PostgreSQL instance pre-loaded with seed data.
 
 ```bash
-# Clone and navigate
-git clone <repo>
+# 1. Clone the repository
+git clone [https://github.com/JAHNAVISINDHU/product-catalog-service.git](https://github.com/JAHNAVISINDHU/product-catalog-service.git)
 cd product-catalog-service
 
-# Start all services (app + PostgreSQL with seed data)
+# 2. Start all services
 docker-compose up --build
-
-# App:       http://localhost:3000
-# Swagger:   http://localhost:3000/api-docs
-# Health:    http://localhost:3000/health
 ```
 
-The database is **automatically seeded** with 12 products and 3 categories on first startup.
+  - **API Base URL**: `http://localhost:3000`
+  - **Swagger Docs**: `http://localhost:3000/api-docs`
+  - **Health Check**: `http://localhost:3000/health`
 
----
+> **Note**: The database is automatically seeded with 12 products and 3 categories on the first startup.
 
-## Local Development
+-----
 
-```bash
-# 1. Start only the database
-docker-compose up db -d
+## 💻 Local Development
 
-# 2. Install dependencies
-npm install
+If you prefer to run the application outside of Docker:
 
-# 3. Copy and configure environment
-cp .env.example .env
-# Edit .env: set DB_HOST=localhost
+1.  **Start the database:**
 
-# 4. Run the app
-npm run dev
-```
+    ```bash
+    docker-compose up db -d
+    ```
 
----
+2.  **Install dependencies:**
 
-## Running Tests
+    ```bash
+    npm install
+    ```
 
-### Unit Tests (no DB required)
+3.  **Configure Environment:**
+
+    ```bash
+    cp .env.example .env
+    # Ensure DB_HOST is set to 'localhost' in your .env
+    ```
+
+4.  **Run the app:**
+
+    ```bash
+    npm run dev
+    ```
+
+-----
+
+## 🧪 Running Tests
+
+### Unit Tests
+
+Tests the logic in isolation using mocked database connections.
 
 ```bash
 npm run test:unit
 ```
 
-### Integration Tests (requires PostgreSQL)
+### Integration Tests
+
+Requires a running PostgreSQL instance.
 
 ```bash
-# Start the database first
+# Start DB
 docker-compose up db -d
 
-# Run integration tests
+# Run tests
 INTEGRATION_TEST=true DB_HOST=localhost npm run test:integration
 ```
 
-### All Tests
+-----
 
-```bash
-npm test
-```
-
----
-
-## API Endpoints
+## 🔗 API Reference
 
 ### Products
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/products` | Create a product |
+| :--- | :--- | :--- |
 | `GET` | `/products` | List products (paginated) |
-| `GET` | `/products/:id` | Get a single product |
+| `POST` | `/products` | Create a product |
+| `GET` | `/products/search` | Advanced search & filtering |
+| `GET` | `/products/:id` | Get product details |
 | `PUT` | `/products/:id` | Update a product |
-| `DELETE` | `/products/:id` | Delete a product |
-| `GET` | `/products/search` | Advanced search |
+| `DELETE` | `/products/:id` | Remove a product |
 
-### Categories
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/categories` | Create a category |
-| `GET` | `/categories` | List categories (paginated) |
-| `GET` | `/categories/:id` | Get a single category |
-| `PUT` | `/categories/:id` | Update a category |
-| `DELETE` | `/categories/:id` | Delete a category |
-
-### Search Query Parameters
+### Advanced Search Parameters
 
 | Parameter | Type | Description |
-|-----------|------|-------------|
-| `keyword` | string | Full-text search on name + description |
-| `category_ids` | string | Comma-separated category IDs e.g. `1,2` |
-| `min_price` | number | Minimum price filter |
-| `max_price` | number | Maximum price filter |
-| `limit` | integer | Results per page (default: 10, max: 100) |
-| `skip` | integer | Results to skip (default: 0) |
+| :--- | :--- | :--- |
+| `keyword` | `string` | Search in name and description |
+| `category_ids` | `string` | CSV format (e.g., `1,2,5`) |
+| `min_price` | `number` | Minimum price threshold |
+| `max_price` | `number` | Maximum price threshold |
 
-### Pagination Response Format
+-----
 
-```json
-{
-  "data": [...],
-  "total": 42,
-  "limit": 10,
-  "skip": 0
-}
-```
-
----
-
-## Design Patterns
+## 🏗 Design Patterns
 
 ### Repository Pattern
-All database operations are abstracted behind repository classes (`ProductRepository`, `CategoryRepository`). Controllers never touch the database directly — they go through Services → Repositories.
+
+All database operations are abstracted behind repository classes. Controllers never touch the database directly; they interact with **Services**, which in turn utilize **Repositories**.
 
 ### Unit of Work
-`UnitOfWork.transaction(fn)` wraps multi-step operations (e.g., creating a product AND linking its categories) in a single atomic PostgreSQL transaction. On success it commits; on failure it rolls back automatically.
 
-### Example: Atomic Product Creation
+The `UnitOfWork.transaction(fn)` wrapper ensures that complex operations are atomic. If a multi-step process fails at any point, the entire transaction is rolled back automatically.
 
-```js
+```javascript
+// Example of Atomic Creation
 return UnitOfWork.transaction(async (client) => {
-  const product = await productRepo.create(productData, client);   // Step 1
-  await productRepo.linkCategories(product.id, categoryIds, client); // Step 2
-  return productRepo.findById(product.id, client);                 // Step 3
+  const product = await productRepo.create(productData, client);
+  await productRepo.linkCategories(product.id, categoryIds, client);
+  return productRepo.findById(product.id, client);
 });
-// If any step fails → automatic ROLLBACK
 ```
 
----
+-----
 
-## Error Responses
-
-All errors return consistent JSON:
-
-```json
-{
-  "error": "Not Found",
-  "message": "Product with id 99 not found"
-}
-```
-
-| Status | Meaning |
-|--------|---------|
-| 400 | Validation error / bad input |
-| 404 | Resource not found |
-| 409 | Conflict (duplicate SKU or name) |
-| 500 | Unexpected server error |
+**Developed by [Jahnavi Sindhu](https://www.google.com/search?q=https://github.com/JAHNAVISINDHU)**
